@@ -1,0 +1,706 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sajjad Ghorbani — Product Designer | UI/UX Designer</title>
+<meta name="description" content="Portfolio of Sajjad Ghorbanifarmad, a UI/UX designer who designs Persian-first, right-to-left products, builds their design systems and tests them with users.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ---------- Tokens ---------- */
+:root {
+  --paper: #F4F5F7;
+  --surface: #FFFFFF;
+  --ink: #15171C;
+  --muted: #545B68;
+  --rule: #D7DAE0;
+  --accent: #1C39BB;          /* Persian blue */
+  --accent-soft: #E6EAFA;
+  --placeholder: #E9EBEF;
+  --font-latin: "IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-persian: "IBM Plex Sans Arabic", "Vazirmatn", Tahoma, sans-serif;
+  --measure: 68ch;
+  --wide: 1120px;
+  color-scheme: light;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #16181D; --surface: #1E2128; --ink: #ECEEF2; --muted: #A3AAB7;
+    --rule: #333844; --accent: #8EA2F5; --accent-soft: #252C47; --placeholder: #262A33;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #16181D; --surface: #1E2128; --ink: #ECEEF2; --muted: #A3AAB7;
+  --rule: #333844; --accent: #8EA2F5; --accent-soft: #252C47; --placeholder: #262A33;
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: inherit; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font: 400 1.0625rem/1.65 var(--font-latin);
+  text-rendering: optimizeLegibility;
+}
+[lang="fa"] { font-family: var(--font-persian); }
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--accent); text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+.skip { position: absolute; left: -999px; top: 8px; background: var(--surface); padding: 8px 12px; z-index: 20; }
+.skip:focus { left: 8px; }
+
+/* ---------- Layout ---------- */
+.wrap { width: min(100% - 2.5rem, var(--wide)); margin-inline: auto; }
+.prose { max-width: var(--measure); }
+header.site {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--rule);
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper); }
+header.site .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 60px; }
+.brand { font-weight: 600; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; white-space: nowrap; }
+@media (max-width: 520px) { .theme-toggle { display: none; } nav.primary ul { gap: 0.9rem; } nav.primary a { font-size: 0.9rem; } }
+nav.primary ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 1.25rem; }
+nav.primary a { color: var(--ink); text-decoration: none; font-weight: 500; font-size: 0.95rem; }
+nav.primary a[aria-current="page"], nav.primary a:hover { color: var(--accent); }
+.theme-toggle { background: none; border: 1px solid var(--rule); color: var(--ink); border-radius: 999px; padding: 4px 10px; font: inherit; font-size: 0.85rem; cursor: pointer; }
+
+main { padding-bottom: 4rem; }
+[data-route][hidden] { display: none !important; }
+
+/* ---------- Type scale ---------- */
+h1, h2, h3 { line-height: 1.15; letter-spacing: -0.015em; font-weight: 600; margin: 0; }
+h2 { font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); margin: 3.5rem 0 1rem; }
+h3 { font-size: 1.2rem; margin: 2rem 0 0.5rem; }
+p { margin: 0 0 1rem; }
+.lead { font-size: 1.25rem; line-height: 1.5; color: var(--ink); }
+.muted { color: var(--muted); }
+small, .small { font-size: 0.9rem; }
+
+/* ---------- Hero: bilingual, mirrored ---------- */
+.hero { padding: clamp(3rem, 8vw, 6.5rem) 0 2.5rem; border-bottom: 1px solid var(--rule); }
+.names { display: grid; gap: 0.25rem; }
+.name-en, .name-fa { font-weight: 600; font-size: clamp(2.6rem, 1.4rem + 6vw, 6rem); line-height: 1.02; margin: 0; }
+.name-en { letter-spacing: -0.035em; justify-self: start; }
+.name-fa { justify-self: end; color: var(--accent); font-weight: 500; letter-spacing: 0; line-height: 1.25; }
+.hero .intro { margin: 2rem 0 1rem; max-width: 40ch; font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem); line-height: 1.45; font-weight: 400; letter-spacing: -0.005em; }
+.hero .intro + p { max-width: 52ch; color: var(--muted); }
+@media (prefers-reduced-motion: no-preference) {
+  .name-en { animation: from-left 700ms cubic-bezier(.2,.7,.2,1) both; }
+  .name-fa { animation: from-right 700ms 120ms cubic-bezier(.2,.7,.2,1) both; }
+  @keyframes from-left { from { opacity: 0; transform: translateX(-2.5rem); } }
+  @keyframes from-right { from { opacity: 0; transform: translateX(2.5rem); } }
+}
+
+/* ---------- Work list ---------- */
+.work { list-style: none; padding: 0; margin: 0; }
+.work > li { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: clamp(1.25rem, 3vw, 2.75rem); align-items: center; padding: 2.5rem 0; border-bottom: 1px solid var(--rule); }
+.work > li:first-child { padding-top: 1rem; }
+.work h3 { font-size: clamp(1.5rem, 1.2rem + 1vw, 2.1rem); margin: 0 0 0.5rem; }
+.work h3 a { color: var(--ink); text-decoration: none; }
+.work h3 a:hover { color: var(--accent); }
+.work .role { color: var(--muted); font-size: 0.95rem; margin-bottom: 1rem; }
+.work .open { font-weight: 500; }
+@media (max-width: 760px) { .work > li { grid-template-columns: 1fr; } }
+
+/* ---------- Figures and image slots ---------- */
+figure { margin: 2rem 0; }
+figure .frame { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; }
+figure .frame img { width: 100%; }
+figcaption { margin-top: 0.6rem; color: var(--muted); font-size: 0.9rem; max-width: var(--measure); }
+figure.missing .frame { background: var(--placeholder); border-style: dashed; aspect-ratio: var(--ratio, 16 / 10); display: grid; place-items: center; }
+figure.missing .frame img { display: none; }
+figure.missing .frame::after { content: "Image: " attr(data-file); color: var(--muted); font-size: 0.85rem; padding: 1rem; text-align: center; }
+.pair { display: grid; grid-template-columns: minmax(0, 2.4fr) minmax(0, 1fr); gap: 1rem; align-items: start; }
+.trio { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; align-items: start; }
+.duo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; align-items: start; }
+.phones2 { display: grid; grid-template-columns: repeat(2, minmax(0, 300px)); gap: 1rem; align-items: start; }
+.pair figure, .trio figure, .duo figure, .phones2 figure { margin: 0; }
+.figrow { margin: 2rem 0; }
+.figrow > figcaption { margin-top: 0.75rem; grid-column: 1 / -1; }
+.phone .frame { --ratio: 390 / 844; }
+@media (max-width: 760px) { .pair, .trio, .duo { grid-template-columns: 1fr; } .trio .phone, .pair .phone { max-width: 320px; } }
+
+/* ---------- Case study parts ---------- */
+.cs-head { padding: clamp(2.5rem, 6vw, 4.5rem) 0 1.5rem; }
+.cs-head h1 { font-size: clamp(2.4rem, 1.6rem + 3.5vw, 4rem); letter-spacing: -0.03em; }
+.cs-head .lead { margin-top: 1rem; max-width: 52ch; }
+.back { display: inline-block; margin-bottom: 1.5rem; font-weight: 500; text-decoration: none; }
+.facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin: 1.5rem 0 0; border-top: 1px solid var(--rule); }
+.facts div { padding: 0.9rem 1rem 0.9rem 0; border-bottom: 1px solid var(--rule); }
+.facts dt { font-size: 0.85rem; color: var(--muted); }
+.facts dd { margin: 0.15rem 0 0; font-weight: 500; }
+@media (max-width: 760px) { .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 340px) { .facts { grid-template-columns: 1fr; } }
+.note { background: var(--accent-soft); border-left: 3px solid var(--accent); padding: 1rem 1.15rem; border-radius: 0 8px 8px 0; max-width: var(--measure); margin: 1.5rem 0; }
+.note p:last-child { margin: 0; }
+ol.steps, ul.plain { padding-left: 1.25rem; max-width: var(--measure); }
+ol.steps li, ul.plain li { margin-bottom: 0.45rem; }
+.decision { max-width: var(--measure); margin: 2.25rem 0 0; }
+.decision h3 { margin-top: 0; }
+.decision .why { color: var(--muted); }
+.table-scroll { overflow-x: auto; margin: 1.25rem 0 1.5rem; }
+table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 0.95rem; }
+th, td { text-align: left; vertical-align: top; padding: 0.65rem 0.9rem 0.65rem 0; border-bottom: 1px solid var(--rule); }
+th { font-weight: 600; color: var(--muted); font-size: 0.85rem; }
+td.result { white-space: nowrap; font-weight: 500; }
+.next { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-weight: 500; }
+
+/* ---------- About & contact ---------- */
+.about { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: clamp(1.5rem, 4vw, 3.5rem); align-items: start; }
+.portrait { width: 100%; max-width: 280px; aspect-ratio: 4 / 5; border-radius: 10px; background: var(--placeholder); display: grid; place-items: center; overflow: hidden; border: 1px solid var(--rule); }
+.portrait img { width: 100%; height: 100%; object-fit: cover; }
+.portrait .initials { font-size: 3rem; font-weight: 600; color: var(--muted); }
+.skills { list-style: none; padding: 0; margin: 1.25rem 0 0; max-width: var(--measure); }
+.skills li { padding: 0.7rem 0; border-bottom: 1px solid var(--rule); }
+.skills strong { display: block; font-weight: 600; }
+.skills span { color: var(--muted); font-size: 0.95rem; }
+@media (max-width: 760px) { .about { grid-template-columns: 1fr; } }
+.contact { padding: 3rem 0 1rem; }
+.buttons { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1rem; }
+.btn { display: inline-block; padding: 0.7rem 1.15rem; border-radius: 999px; font-weight: 500; text-decoration: none; border: 1px solid var(--accent); }
+.btn.primary { background: var(--accent); color: var(--surface); }
+.btn.secondary { color: var(--accent); }
+:root[data-theme="dark"] .btn.primary { color: #10131A; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn.primary { color: #10131A; } }
+footer.site { border-top: 1px solid var(--rule); padding: 1.5rem 0 2rem; color: var(--muted); font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="#/">Sajjad Ghorbanifarmad</a>
+    <nav class="primary" aria-label="Main">
+      <ul>
+        <li><a href="#/" data-nav="home">Work</a></li>
+        <li><a href="#/about" data-nav="about">About</a></li>
+        <li><a href="#/contact" data-nav="contact">Contact</a></li>
+        <li><button class="theme-toggle" type="button" aria-label="Switch colour theme">Theme</button></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="content">
+
+<!-- ===================== HOME ===================== -->
+<section data-route="home">
+  <div class="hero">
+    <div class="wrap">
+      <div class="names">
+        <p class="name-en">Sajjad Ghorbanifarmad</p>
+        <p class="name-fa" lang="fa" dir="rtl">سجاد قربانی فارمد</p>
+      </div>
+      <h1 class="intro">UI/UX designer. I design Persian-first, right-to-left products, build their design systems and test them with users.</h1>
+      <p>I studied computer engineering. I'm now preparing to apply for master's programmes in Human–Computer Interaction in Germany, and I'm open to junior UI/UX and product design roles.</p>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <h2 id="work">Selected work</h2>
+    <ul class="work">
+      <li>
+        <figure class="slot"><div class="frame" data-file="fante-cover"><img src="images/fante-cover.webp" alt="FanteQuiz home page on desktop and mobile" width="1600" height="1000"></div></figure>
+        <div>
+          <h3><a href="#/fante">FanteQuiz</a></h3>
+          <p>A platform where fans of fantasy worlds play personality tests, quizzes and polls, and build their own for others.</p>
+          <p class="role">Personal project, in progress. Information architecture, UI, a design system of 44 component sets, and unmoderated usability tests in Maze.</p>
+          <a class="open" href="#/fante">Read the case study</a>
+        </div>
+      </li>
+      <li>
+        <figure class="slot"><div class="frame" data-file="divar-cover"><img src="images/divar-cover.webp" alt="Divar redesign: welcome screen, listing form and under-review confirmation" width="1600" height="1000" loading="lazy"></div></figure>
+        <div>
+          <h3><a href="#/divar">Divar redesign</a></h3>
+          <p>An unofficial redesign of a popular Iranian classifieds app, made by a team of five designers in six days.</p>
+          <p class="role">Team project. My part: the listing and payment flow, and the clickable prototype of the whole app.</p>
+          <a class="open" href="#/divar">Read the case study</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== FANTEQUIZ ===================== -->
+<section data-route="fante" hidden>
+  <div class="wrap">
+    <div class="cs-head">
+      <a class="back" href="#/">Back to all work</a>
+      <h1>FanteQuiz</h1>
+      <p class="lead">A Persian-first platform where fans of fantasy worlds play personality tests, quizzes and polls, and build their own for others to play.</p>
+      <dl class="facts">
+        <div><dt>Role</dt><dd>Designer: UX, UI, design system, prototype, usability testing</dd></div>
+        <div><dt>Platforms</dt><dd>Desktop and mobile, Persian, right-to-left</dd></div>
+        <div><dt>Scope</dt><dd>161 design frames, 4 roles plus guests, 3 game types</dd></div>
+        <div><dt>Tools</dt><dd>Figma, FigJam, Maze</dd></div>
+        <div><dt>Status</dt><dd>Version 1 tested; later changes not yet tested</dd></div>
+        <div><dt>Year</dt><dd>2026</dd></div>
+      </dl>
+    </div>
+
+    <div class="figrow pair">
+      <figure class="slot"><div class="frame" data-file="fante-home-desktop"><img src="images/fante-home-desktop.webp" alt="FanteQuiz home page on desktop" loading="lazy"></div></figure>
+      <figure class="slot phone"><div class="frame" data-file="fante-home-mobile"><img src="images/fante-home-mobile.webp" alt="FanteQuiz home page on mobile" loading="lazy"></div></figure>
+      <figcaption>Home on desktop and mobile. Game artwork is replaced with placeholders for copyright reasons.</figcaption>
+    </div>
+
+    <div class="prose">
+      <p class="muted small">Armin wrote the site's first roadmap, made the original banner artwork and redesigned some headers and dashboards that weren't used. Everything else on this page is my work.</p>
+
+      <h2>The challenge</h2>
+      <p>The three game types work in different ways. A quiz has right answers and a score. A personality test maps every answer to one or more possible outcomes. A poll has neither, only a spread of votes.</p>
+      <p>The platform had to make all three easy to play, including for first-time visitors without an account, and easy enough to build that fans would publish their own, while keeping user-made content safe through review. No user research came before the design; the usability test below is the first evidence from users.</p>
+
+      <h2>Users and roles</h2>
+      <p>Five kinds of user move through the product: four account roles plus signed-out guests.</p>
+    </div>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th scope="col">User</th><th scope="col">What they can do</th></tr></thead>
+        <tbody>
+          <tr><td>Guest</td><td>Browse and play any game; log in afterwards to keep the result</td></tr>
+          <tr><td>Player</td><td>Save results and history; earn XP, levels, streaks and badges; follow people, rate and review games, appear in rankings</td></tr>
+          <tr><td>Creator</td><td>Build tests, quizzes and polls, submit them for review, track their status, edit published games and see their analytics</td></tr>
+          <tr><td>Game admin</td><td>Review submitted games in one assigned category: approve, return for edits with a reason, or refer to a site admin</td></tr>
+          <tr><td>Site admin</td><td>Run the whole admin panel: all reviews, permanent deletion, users and roles, tickets, articles, reports and site settings (desktop only)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="prose">
+      <h2>Information architecture</h2>
+      <p>I organised the product into six areas: public pages, login and sign-up, playing, community, the user dashboard and the admin panel. The first site map had 43 pages; the design grew to 161 frames once error states, empty lists, modals and in-game interruptions were added.</p>
+
+      <h3>Play, as a guest</h3>
+      <ol class="steps">
+        <li>Find a game from the home page, or browse tests, quizzes or polls.</li>
+        <li>Read the game overview: description, possible results, rules and top players.</li>
+        <li>Play.</li>
+        <li>See the result, then share it or log in to keep it.</li>
+      </ol>
+
+      <h3>Create a game</h3>
+      <ol class="steps">
+        <li>Basic information and game type: test, quiz or poll.</li>
+        <li>Results: outcomes for a test, score tiers for a quiz, result visibility for a poll.</li>
+        <li>Questions and scoring.</li>
+        <li>Publish settings: public or link-only, tags, category.</li>
+        <li>Submitted, then in review, then approved and published, or returned with a reason.</li>
+      </ol>
+
+      <h3>Review a game</h3>
+      <ol class="steps">
+        <li>The game enters the review queue with automatic checks: banned words, missing answers, and covers that resemble copyrighted images.</li>
+        <li>A game admin for that category, or a site admin, approves it or returns it with a reason the creator sees in "My games".</li>
+        <li>Game admins can refer a case to a site admin; only site admins can delete a game permanently.</li>
+      </ol>
+
+      <h2>Key design decisions</h2>
+
+      <div class="decision">
+        <h3>Play first, account later</h3>
+        <p>Anyone can play without signing up. The result is kept temporarily, and a "keep your result" prompt leads to login only after the game.</p>
+        <p class="why">An account wall before the first game would cost players before they see any value.</p>
+      </div>
+    </div>
+    <div class="figrow duo">
+      <figure class="slot"><div class="frame" data-file="fante-test-result"><img src="images/fante-test-result.webp" alt="Personality-test result for a guest, with a prompt to keep the result" loading="lazy"></div></figure>
+      <figure class="slot"><div class="frame" data-file="fante-shared-result"><img src="images/fante-shared-result.webp" alt="Public page for a shared result" loading="lazy"></div></figure>
+      <figcaption>A guest's test result with the prompt to keep it, and the public page a shared result opens.</figcaption>
+    </div>
+
+    <div class="prose">
+      <div class="decision">
+        <h3>Passwordless sign-in</h3>
+        <p>Accounts use an SMS verification code or Google and Apple sign-in, so there are no passwords to create, forget or recover. Phone, code and sign-up screens each have their own error states.</p>
+        <p class="why">Fewer steps, and no recovery flow to design or support.</p>
+      </div>
+
+      <div class="decision">
+        <h3>One wizard, three scoring models</h3>
+        <p>Every game type is built in the same four steps, but steps 2 and 3 change with the type. A test assigns each answer option points towards one or more outcomes, with a panel showing how balanced the outcomes are. A quiz marks one correct answer per question and sorts players into score tiers. A poll has no scoring, and the creator chooses when results appear.</p>
+        <p class="why">One familiar structure, with complexity only where a type needs it. Testing showed this is where the design is weakest.</p>
+      </div>
+    </div>
+    <div class="figrow duo">
+      <figure class="slot"><div class="frame" data-file="fante-create-1"><img src="images/fante-create-1.webp" alt="Create a game, step 1: basic information and game type" loading="lazy"></div></figure>
+      <figure class="slot"><div class="frame" data-file="fante-create-3-matrix"><img src="images/fante-create-3-matrix.webp" alt="Create a game, step 3: questions and the score matrix for a personality test" loading="lazy"></div></figure>
+      <figure class="slot"><div class="frame" data-file="fante-create-2-results"><img src="images/fante-create-2-results.webp" alt="Create a game, step 2: the outcomes of a personality test" loading="lazy"></div></figure>
+      <figure class="slot"><div class="frame" data-file="fante-create-4-publish"><img src="images/fante-create-4-publish.webp" alt="Create a game, step 4: publish settings and submit for review" loading="lazy"></div></figure>
+      <figcaption>The creation wizard for a personality test: basic information, outcomes, questions with the score matrix, and publishing.</figcaption>
+    </div>
+
+    <div class="prose">
+      <div class="decision">
+        <h3>Review before publishing, with scoped moderators</h3>
+        <p>Submitted games pass automatic checks, then a human decision. Moderators give a reason when returning a game, and the creator sees it in "My games". Game admins see only their category; permanent deletion is reserved for site admins.</p>
+        <p class="why">Keep user-made content safe without making one person a bottleneck. Both desktop test participants said they'd look for a rejected game's status in "My games", where the design puts it.</p>
+      </div>
+    </div>
+    <div class="figrow duo">
+      <figure class="slot"><div class="frame" data-file="fante-review-queue"><img src="images/fante-review-queue.webp" alt="Site admin review queue with automatic checks and a decision panel" loading="lazy"></div></figure>
+      <figure class="slot"><div class="frame" data-file="fante-game-admin"><img src="images/fante-game-admin.webp" alt="Game admin review queue limited to one category" loading="lazy"></div></figure>
+      <figure class="slot"><div class="frame" data-file="fante-my-games"><img src="images/fante-my-games.webp" alt="My games, showing each game's review status" loading="lazy"></div></figure>
+      <figcaption>The site admin's review queue, a game admin's queue limited to one category, and a creator's "My games" with review statuses.</figcaption>
+    </div>
+
+    <div class="prose">
+      <div class="decision">
+        <h3>Designing the unhappy paths</h3>
+        <p>The design covers 404, server-error and maintenance pages; in-game time-up, exit confirmation, loading and offline states; empty and loading states for six lists; and field-level errors in sign-in.</p>
+      </div>
+    </div>
+    <div class="figrow trio">
+      <figure class="slot"><div class="frame" data-file="fante-404"><img src="images/fante-404.webp" alt="404 page" loading="lazy"></div></figure>
+      <figure class="slot"><div class="frame" data-file="fante-offline"><img src="images/fante-offline.webp" alt="Connection lost during a game" loading="lazy"></div></figure>
+      <figure class="slot"><div class="frame" data-file="fante-time-up"><img src="images/fante-time-up.webp" alt="Time up for a question" loading="lazy"></div></figure>
+      <figcaption>Not found, connection lost mid-game, and time up on a question.</figcaption>
+    </div>
+
+    <div class="prose">
+      <div class="decision">
+        <h3>Mobile as its own layout</h3>
+        <p>Mobile uses bottom navigation and a drawer, and game creation moves question editing into a bottom sheet. The admin panel stays desktop-only, with a clear notice on mobile instead of a cramped version.</p>
+      </div>
+    </div>
+    <div class="figrow trio">
+      <figure class="slot phone"><div class="frame" data-file="fante-quiz-mobile"><img src="images/fante-quiz-mobile.webp" alt="Playing a text quiz on mobile" loading="lazy"></div></figure>
+      <figure class="slot phone"><div class="frame" data-file="fante-wizard-mobile"><img src="images/fante-wizard-mobile.webp" alt="Editing questions in a bottom sheet on mobile" loading="lazy"></div></figure>
+      <figure class="slot phone"><div class="frame" data-file="fante-admin-mobile"><img src="images/fante-admin-mobile.webp" alt="Notice that the admin panel is desktop-only" loading="lazy"></div></figure>
+      <figcaption>A quiz question, question editing in a bottom sheet, and the desktop-only notice for admins.</figcaption>
+    </div>
+
+    <div class="prose">
+      <h2>Design system</h2>
+      <p>I built a dark-theme system around one amber brand colour and a single Persian typeface, Vazirmatn, so that game artwork carries the colour and the interface stays quiet around it.</p>
+      <ul class="plain">
+        <li><strong>Foundations:</strong> 15 colour tokens, 4 spacing steps from 8 to 24 px, 6 corner radii, 3 shadows and 7 text styles.</li>
+        <li><strong>Components:</strong> 44 component sets with 185 variants, plus 22 standalone components and 49 icons, from buttons and inputs to answer options with correct and wrong states, a game-type selector, an urgent timer chip, OTP fields and leaderboard rows.</li>
+        <li><strong>Accessibility:</strong> every documented text colour pairing passes WCAG AA contrast; the lowest is muted text on panels at 5.1:1.</li>
+        <li><strong>Still to fix:</strong> all text styles use a line height of 100, which is tight for Persian body text, and the subtle border colour is too faint to be the only cue that something is a control.</li>
+      </ul>
+    </div>
+    <figure class="slot"><div class="frame" data-file="fante-style-guide" style="--ratio: 1920 / 1400"><img src="images/fante-style-guide.webp" alt="FanteQuiz style guide: colours, type styles, spacing and components" loading="lazy"></div><figcaption>Style guide: colour, type, spacing and core components.</figcaption></figure>
+
+    <div class="prose">
+      <h2>Usability testing</h2>
+      <p>I ran two unmoderated prototype tests in Maze on version 1, one for desktop and one for mobile. Each mixed task-based missions with short questions and ended with the System Usability Scale. Maze recorded 4 desktop and 7 mobile sessions, but only 2 sessions per study reached the later tasks. Most respondents were 18 to 24.</p>
+    </div>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th scope="col">Task</th><th scope="col">Result</th><th scope="col">What the click paths showed</th></tr></thead>
+        <tbody>
+          <tr><td>Find and play a personality test (desktop)</td><td class="result">4 of 4</td><td>Most took the direct five-screen route; one detoured through login and other game types first</td></tr>
+          <tr><td>Share a result (desktop)</td><td class="result">3 of 3</td><td>One step, no misclicks</td></tr>
+          <tr><td>Sign up to keep a result (desktop)</td><td class="result">Inconclusive</td><td>One reached the phone login; the other signed up by a route the test didn't count</td></tr>
+          <tr><td>Build and submit a personality test (desktop)</td><td class="result">1 of 2</td><td>One stopped on the first step, reporting that its controls didn't respond; the other took over three minutes, with more than half of clicks outside interactive areas</td></tr>
+          <tr><td>Play an anime quiz (mobile)</td><td class="result">Inconclusive</td><td>One reached the score screen twice but wasn't counted; the other circled the game overview and ended up in login</td></tr>
+          <tr><td>Vote in a poll (mobile)</td><td class="result">Inconclusive</td><td>Both reached the poll results at step 3 but weren't counted</td></tr>
+          <tr><td>Find a notification setting (mobile)</td><td class="result">2 of 2</td><td>One went straight to Settings; the other looked on the Notifications page first</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="prose">
+      <ul class="plain">
+        <li><strong>Score matrix:</strong> the one participant who used it rated it 1 out of 5 for ease.</li>
+        <li><strong>Mobile play:</strong> both mobile respondents rated playing a quiz on a phone as hard (1 and 2 out of 5), and both wanted to know immediately whether each answer was right.</li>
+        <li><strong>Game overview:</strong> 3 of 4 desktop respondents read only one of the page's two notices.</li>
+        <li><strong>SUS:</strong> 45 on desktop and 55 on mobile, from two respondents each; below the commonly cited average of about 68, but too few responses to interpret.</li>
+      </ul>
+    </div>
+    <div class="figrow duo">
+      <figure class="slot"><div class="frame" data-file="maze-mobile-poll-paths" style="--ratio: 1600 / 899"><img src="images/maze-mobile-poll-paths.webp" alt="Maze navigation overview for the mobile poll task: both participants reach the poll result at step 3, yet the task is marked unfinished" loading="lazy"></div></figure>
+      <figure class="slot"><div class="frame" data-file="maze-desktop-create-paths" style="--ratio: 1600 / 894"><img src="images/maze-desktop-create-paths.webp" alt="Maze navigation overview for the desktop create-a-test task: one participant completes it, the other drops off on the first step" loading="lazy"></div></figure>
+      <figcaption>Maze click paths. Left: both poll participants reach the results at step 3, yet Maze marks the task unfinished. Right: one participant completes game creation; the other stops on the first step.</figcaption>
+    </div>
+
+    <div class="prose">
+      <h3>Design implications</h3>
+      <ul class="plain">
+        <li>Make the first step of game creation fully interactive, then retest building a test.</li>
+        <li>Test the score matrix on its own, with more participants.</li>
+        <li>Show right or wrong after each quiz question; the answer-option component already has those states.</li>
+        <li>Add a notification-settings link to the Notifications page.</li>
+        <li>Merge or reorder the two notices on the game overview page.</li>
+      </ul>
+
+      <h2>Limitations</h2>
+      <ul class="plain">
+        <li><strong>Small samples.</strong> Two to four sessions per task show direction, not statistical significance.</li>
+        <li><strong>Unmoderated and unrecorded.</strong> I can see where people went, but not why.</li>
+        <li><strong>Test setup.</strong> Three tasks are inconclusive: participants reached valid end points that Maze didn't count, most likely because success was defined too narrowly. One mobile mission was edited mid-study, and the desktop prototype skipped the question screens of the personality test.</li>
+        <li><strong>Untested changes.</strong> The design has changed since the test, and those changes haven't been tested.</li>
+      </ul>
+
+      <h2>What I learned</h2>
+      <ul class="plain">
+        <li><strong>Define every valid ending before launch.</strong> Completed tasks were recorded as failures, most likely because each had a single success screen; only the click paths revealed it.</li>
+        <li><strong>Prototype the interaction the task depends on.</strong> If a selector or a question screen isn't interactive, the test measures the prototype, not the design.</li>
+        <li><strong>Small unmoderated tests need a second method.</strong> Next round I'll pair Maze with a few moderated sessions, so I can ask why.</li>
+      </ul>
+
+      <h2>Next steps</h2>
+      <ol class="steps">
+        <li>Fix the creation wizard's first step and the score-matrix interactions.</li>
+        <li>Retest building a test and playing on mobile, with at least five participants per platform and every valid ending counted.</li>
+        <li>Link each change made since version 1 to the finding it answers, then show before and after.</li>
+        <li>Raise body line height and strengthen control borders in the design system.</li>
+      </ol>
+    </div>
+
+    <nav class="next" aria-label="Case studies">
+      <a href="#/">All work</a>
+      <a href="#/divar">Next: Divar redesign</a>
+    </nav>
+  </div>
+</section>
+
+<!-- ===================== DIVAR ===================== -->
+<section data-route="divar" hidden>
+  <div class="wrap">
+    <div class="cs-head">
+      <a class="back" href="#/">Back to all work</a>
+      <h1>Divar redesign</h1>
+      <p class="lead">An unofficial redesign of a popular Iranian classifieds app, made by a team of five designers in a six-day sprint.</p>
+      <dl class="facts">
+        <div><dt>My role</dt><dd>Listing and payment flow, full-app prototype, FigJam app flow, design-system work, case-study co-writing</dd></div>
+        <div><dt>Team</dt><dd>5 designers</dd></div>
+        <div><dt>Duration</dt><dd>6 days</dd></div>
+        <div><dt>Platform</dt><dd>Mobile app, Persian, right-to-left</dd></div>
+        <div><dt>Tools</dt><dd>Figma, FigJam</dd></div>
+        <div><dt>Type</dt><dd>Unofficial concept, not affiliated with Divar</dd></div>
+      </dl>
+    </div>
+
+    <div class="prose">
+      <h2>The problem</h2>
+      <p>Divar is a popular Iranian classifieds app where people buy and sell goods and services directly. Our review of the app found friction in three everyday tasks:</p>
+      <ul class="plain">
+        <li><strong>Signing in:</strong> login and sign-up shared one screen, and there was no Google or Apple sign-in.</li>
+        <li><strong>Posting a listing:</strong> it took several tabs and screen changes to post a single listing, with no preview before publishing.</li>
+        <li><strong>Chatting:</strong> chats had no useful filters and no read status, so people couldn't tell whether a message had been seen.</li>
+      </ul>
+      <p>Users also couldn't edit their account details or delete their account.</p>
+
+      <h2>Process</h2>
+      <p>The team followed five design-thinking phases across six days.</p>
+      <ol class="steps">
+        <li><strong>Empathise:</strong> a questionnaire, interviews, and a review of five classifieds apps (Craigslist, OLX, Facebook Marketplace, Sheypoor and Divar) against ten criteria, from search and filtering to trust and personalisation.</li>
+        <li><strong>Define:</strong> an empathy map and two proto-personas.</li>
+        <li><strong>Ideate:</strong> more than 40 paper sketches, and user flows for signing in and posting a listing.</li>
+        <li><strong>Design:</strong> a shared design system and high-fidelity screens for home, sign-in, posting and payment, chat and calls, "My Divar" and saved listings.</li>
+        <li><strong>Test:</strong> a clickable prototype of the whole app.</li>
+      </ol>
+      <p>The empathy map pointed to three needs: trust in sellers and listings, more precise filters to save time, and a simpler chat.</p>
+
+      <h2>Proto-personas</h2>
+      <p>Both personas were built by the team from its research and assumptions, so they are proto-personas rather than research-validated profiles.</p>
+    </div>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th scope="col"></th><th scope="col">Pedram, 23, student</th><th scope="col">Zahra, 45, retired teacher</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Goal</th><td>Buy a used laptop or phone; rent student housing</td><td>Sell household items; buy affordable household essentials</td></tr>
+          <tr><th scope="row">Behaviour</th><td>Short on time; wants to post a listing in minutes; active in chats</td><td>Compares prices across several apps; leaves quickly if an app feels messy</td></tr>
+          <tr><th scope="row">Frustrations</th><td>Too many steps to post; no preview; no way to see whether a message was read</td><td>Confusing sign-in; no Google or Apple login; can't edit or delete her account</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="prose">
+      <h2>Pain points and solutions</h2>
+    </div>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th scope="col">Pain point</th><th scope="col">Solution</th></tr></thead>
+        <tbody>
+          <tr><td>Login and sign-up share one screen</td><td>Separate login and sign-up screens</td></tr>
+          <tr><td>No social login</td><td>Google and Apple sign-in</td></tr>
+          <tr><td>Too many tabs and screen changes to post one listing</td><td>A shorter, clearer posting flow</td></tr>
+          <tr><td>No preview before publishing</td><td>A listing preview before final confirmation</td></tr>
+          <tr><td>No useful chat filters</td><td>Chat filters</td></tr>
+          <tr><td>No read status in chat</td><td>Read receipts</td></tr>
+          <tr><td>Can't edit account details or delete the account</td><td>An edit-profile screen and account deletion</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="prose">
+      <h2>My part: posting a listing and paying to promote it</h2>
+      <p>I designed the flow for posting a listing, the area where the old app made people switch screens most.</p>
+      <ol class="steps">
+        <li><strong>Start from home.</strong> If the person isn't signed in, they sign in first, by phone or with Google or Apple.</li>
+        <li><strong>Fill in one listing form,</strong> with input checked before moving on, so errors are fixed in the form rather than after publishing.</li>
+        <li><strong>Preview the listing</strong> exactly as buyers will see it, the step the old app lacked.</li>
+        <li><strong>Choose whether to promote it.</strong> Promotion is a single yes-or-no step, so paying never stands between someone and posting a free listing.</li>
+        <li><strong>Pay,</strong> if they chose to promote.</li>
+        <li><strong>See "Under review",</strong> which tells them the listing isn't live yet and will appear once it is checked.</li>
+      </ol>
+    </div>
+    <div class="figrow trio">
+      <figure class="slot phone"><div class="frame" data-file="divar-add-post" style="--ratio: 393 / 1266"><img src="images/divar-add-post.webp" alt="The listing form" loading="lazy"></div></figure>
+      <figure class="slot phone"><div class="frame" data-file="divar-promote" style="--ratio: 393 / 927"><img src="images/divar-promote.webp" alt="Choosing whether to promote the listing" loading="lazy"></div></figure>
+      <figure class="slot phone"><div class="frame" data-file="divar-under-review" style="--ratio: 393 / 580"><img src="images/divar-under-review.webp" alt="Listing under review confirmation" loading="lazy"></div></figure>
+      <figcaption>The listing form, the optional promotion step and the "Under review" confirmation.</figcaption>
+    </div>
+
+    <div class="prose">
+      <h2>The prototype</h2>
+      <p>I connected the team's screens into one clickable prototype of the whole app, with four starting points: login, chat and calls, Google sign-in, and the home page. It spans 35 frames, from sign-in, verification-code and error states to listing details, reporting a listing, saved listings, settings and profile editing.</p>
+    </div>
+    <div class="figrow phones2">
+      <figure class="slot phone"><div class="frame" data-file="divar-login"><img src="images/divar-login.webp" alt="Welcome screen with separate login and sign-up buttons, plus Google and Apple sign-in" loading="lazy"></div></figure>
+      <figure class="slot phone"><div class="frame" data-file="divar-pay"><img src="images/divar-pay.webp" alt="Payment screen for promoting a listing" loading="lazy"></div></figure>
+      <figcaption>Sign-in with separate login and sign-up, and payment for a promoted listing.</figcaption>
+    </div>
+
+    <div class="prose">
+      <h2>The design system</h2>
+      <p>The team built one shared system, and I contributed to it. Its components are grouped by area (sign-in, My Divar, saved listings, chat and calls, payment), alongside the colour palette, an icon pack and the logo. Type uses IRANSansX with six heading sizes from 32 to 12 px in three weights, with 16 px margins and a 50 px radius for rounded elements.</p>
+
+      <h2>Testing and outcomes</h2>
+      <p>The team ran interviews and a usability check on the prototype, but kept no notes, response counts or results, so I make no claim about how the redesign performed. The intended outcomes, none of them measured, were fewer steps to post a listing, more confidence before publishing, faster sign-in and clearer chats.</p>
+
+      <h2>What I learned</h2>
+      <ul class="plain">
+        <li><strong>Keep the evidence, even in a six-day sprint.</strong> We did the research but kept no records of it, so I can describe what we did but not what we found. On FanteQuiz I kept the test reports.</li>
+        <li><strong>Build personas from data, or label them honestly.</strong> Ours mixed research with assumptions; calling them proto-personas is more accurate than presenting them as validated.</li>
+        <li><strong>One prototype makes a team's work coherent.</strong> Connecting five designers' screens into a single prototype meant every flow had to share the same components and entry points.</li>
+      </ul>
+    </div>
+
+    <nav class="next" aria-label="Case studies">
+      <a href="#/fante">Previous: FanteQuiz</a>
+      <a href="#/">All work</a>
+    </nav>
+  </div>
+</section>
+
+<!-- ===================== ABOUT ===================== -->
+<section data-route="about" hidden>
+  <div class="wrap">
+    <div class="cs-head"><h1>About</h1></div>
+    <div class="about">
+      <div class="portrait" id="portrait"><span class="initials" aria-hidden="true">SG</span></div>
+      <div class="prose">
+        <p class="lead">I came to design from computer engineering.</p>
+        <p>After my bachelor's degree in Computer Engineering, I completed the UI/UX design course at Tehran Technical Complex. For about a year since, I have been designing interfaces for Persian-speaking users, who read right to left: a product of my own, FanteQuiz, and a team redesign of the Divar app.</p>
+        <p>Engineering shapes how I work: I build design systems with tokens and component variants, and I hand-coded this site. Testing FanteQuiz with users taught me the other half: checking what I assume against what people actually do.</p>
+        <p>I'm preparing to apply for master's programmes in Human–Computer Interaction in Germany, and I'm open to junior UI/UX and product design roles.</p>
+
+        <h2>Skills, and where to see them</h2>
+        <ul class="skills">
+          <li><strong>Interface and interaction design</strong><span>Figma; 161 desktop and mobile frames for FanteQuiz</span></li>
+          <li><strong>Design systems</strong><span>Variables, components and variants; 44 component sets for FanteQuiz</span></li>
+          <li><strong>Prototyping</strong><span>Figma prototypes; a full-app prototype with four flows for Divar</span></li>
+          <li><strong>Usability testing</strong><span>Unmoderated tests in Maze, click-path analysis and SUS</span></li>
+          <li><strong>Information architecture</strong><span>Site maps and user flows in FigJam</span></li>
+          <li><strong>Front-end</strong><span>HTML, CSS and JavaScript; this site is hand-coded</span></li>
+          <li><strong>Also</strong><span>Photoshop and Illustrator</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONTACT ===================== -->
+<section data-route="contact" hidden>
+  <div class="wrap contact">
+    <div class="cs-head"><h1>Contact</h1></div>
+    <div class="prose">
+      <p class="lead">The quickest way to reach me is a message on LinkedIn.</p>
+      <div class="buttons">
+        <a class="btn primary" id="linkedin" href="#" target="_blank" rel="noopener">Message me on LinkedIn</a>
+        <a class="btn secondary" id="email" href="#" hidden>Send an email</a>
+        <a class="btn secondary" id="cv" href="#" hidden>Download my CV</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap">Designed and coded by Sajjad Ghorbanifarmad.</div>
+</footer>
+
+<script>
+/* ---------- Edit these four lines ---------- */
+const CONFIG = {
+  linkedin: "https://linkedin.com/in/sajjad-ghorbani-584a15226",
+  email: "sajjad.h9960@gmail.com",
+  cv: "Sajjad-Ghorbanifarmad-CV.pdf",
+  portrait: "images/portrait"   // portrait.webp, .jpg or .png; your initials show until one exists
+};
+
+/* Contact links */
+document.getElementById("linkedin").href = CONFIG.linkedin;
+if (CONFIG.email) { const e = document.getElementById("email"); e.href = "mailto:" + CONFIG.email; e.hidden = false; }
+if (CONFIG.cv) { const c = document.getElementById("cv"); c.href = CONFIG.cv; c.hidden = false; }
+
+/* Portrait with initials fallback */
+(function () {
+  const box = document.getElementById("portrait");
+  const exts = [".webp", ".jpg", ".png"]; let i = 0;
+  const img = new Image();
+  img.alt = "Portrait of Sajjad Ghorbanifarmad";
+  img.onload = () => { box.innerHTML = ""; box.appendChild(img); };
+  img.onerror = () => { if (++i < exts.length) img.src = CONFIG.portrait + exts[i]; };
+  img.src = CONFIG.portrait + exts[0];
+})();
+
+/* Image slots: show a labelled placeholder until the image file exists */
+/* Tries name.webp, then name.png, then shows the placeholder */
+document.querySelectorAll("figure.slot img").forEach((img) => {
+  const fig = img.closest("figure");
+  const next = () => {
+    if (/\.webp$/.test(img.src)) img.src = img.src.replace(/\.webp$/, ".png");
+    else fig.classList.add("missing");
+  };
+  img.addEventListener("error", next);
+  if (img.complete && img.naturalWidth === 0) next();
+});
+
+/* Hash routing: #/, #/fante, #/divar, #/about, #/contact */
+const titles = { home: "Sajjad Ghorbanifarmad — UI/UX designer", fante: "FanteQuiz case study — Sajjad Ghorbanifarmad", divar: "Divar redesign case study — Sajjad Ghorbanifarmad", about: "About — Sajjad Ghorbanifarmad", contact: "Contact — Sajjad Ghorbanifarmad" };
+function route() {
+  const key = (location.hash.replace(/^#\/?/, "") || "home").split("/")[0];
+  const name = titles[key] ? key : "home";
+  document.querySelectorAll("[data-route]").forEach((s) => { s.hidden = s.dataset.route !== name; });
+  document.querySelectorAll("[data-nav]").forEach((a) => {
+    const active = a.dataset.nav === name || (a.dataset.nav === "home" && (name === "fante" || name === "divar"));
+    if (active) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
+  });
+  document.title = titles[name];
+  window.scrollTo(0, 0);
+}
+window.addEventListener("hashchange", route);
+route();
+
+/* Theme toggle: light, dark, or follow the device */
+(function () {
+  const btn = document.querySelector(".theme-toggle");
+  let saved = null;
+  try { saved = localStorage.getItem("theme"); } catch (e) {}
+  if (saved) document.documentElement.dataset.theme = saved;
+  btn.addEventListener("click", () => {
+    const cur = document.documentElement.dataset.theme
+      || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    const next = cur === "dark" ? "light" : "dark";
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem("theme", next); } catch (e) {}
+  });
+})();
+</script>
+</body>
+</html>
